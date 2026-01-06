@@ -43,7 +43,7 @@ function WorkoutDetail({ token }) {
   const updateExercise = (index, field, value) => {
     setExercises(
       exercises.map((ex, i) =>
-        i === index ? { ...ex, [field]: parseInt(value) || 0 } : ex
+        i === index ? { ...ex, [field]: field === 'weight' ? value : (parseInt(value) || 0) } : ex
       )
     );
     setHasChanges(true);
@@ -224,7 +224,7 @@ function WorkoutDetail({ token }) {
                   min="0"
                   max="200"
                   step="10"
-                  value={exercise.weight}
+                  value={exercise.weight || ''}
                   onChange={(e) => updateExercise(index, 'weight', e.target.value)}
                   onFocus={(e) => e.target.select()}
                 />
