@@ -351,14 +351,13 @@ function AddWorkout({ token }) {
                   <div className="form-group">
                     <label>Weight (lbs)</label>
                     <input
-                      type="number"
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       className="form-control"
-                      min="0"
-                      max="200"
-                      step="10"
+                      placeholder=""
                       value={exercise.weight || ''}
-                      onChange={(e) => updateExercise(index, 'weight', e.target.value)}
-                      onFocus={(e) => e.target.select()}
+                      onChange={(e) => updateExercise(index, 'weight', e.target.value.replace(/[^0-9]/g, ''))}
                     />
                   </div>
                 </div>
