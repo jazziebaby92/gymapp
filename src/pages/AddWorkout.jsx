@@ -355,9 +355,12 @@ function AddWorkout({ token }) {
                       inputMode="numeric"
                       pattern="[0-9]*"
                       className="form-control"
-                      placeholder=""
-                      value={exercise.weight || ''}
-                      onChange={(e) => updateExercise(index, 'weight', e.target.value.replace(/[^0-9]/g, ''))}
+                      placeholder=" "
+                      value={parseInt(exercise.weight) > 0 ? exercise.weight : ''}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/[^0-9]/g, '');
+                        updateExercise(index, 'weight', val === '0' ? '' : val);
+                      }}
                     />
                   </div>
                 </div>
