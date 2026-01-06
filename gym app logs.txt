@@ -1,0 +1,15 @@
+mongoDB
+bobloubaleton_db_user
+fNtthM8Ia2qe59TG
+
+bobloubaleton_db_user2
+fNtthM8Ia2qe59TG2
+
+
+mongodb+srv://bobloubaleton_db_user2:fNtthM8Ia2qe59TG2@cluster0.j6cqxfr.mongodb.net/?appName=Cluster0
+
+
+mongodb+srv://cluster0.j6cqxfr.mongodb.net/
+
+
+

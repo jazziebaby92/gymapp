@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WORKLOG Icon Generator</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #1a1a2e; color: white; }
+    canvas { border: 1px solid #333; margin: 10px; }
+    button { background: #e94560; color: white; border: none; padding: 10px 20px; cursor: pointer; margin: 5px; border-radius: 8px; }
+    .icons { display: flex; gap: 20px; flex-wrap: wrap; }
+    .icon-box { text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>WORKLOG Icon Generator</h1>
+  <p>Click the buttons below to download the icons, then save them to <code>public/icons/</code></p>
+
+  <div class="icons">
+    <div class="icon-box">
+      <canvas id="icon192" width="192" height="192"></canvas>
+      <br><button onclick="download('icon192', 'icon-192.png')">Download 192x192</button>
+    </div>
+    <div class="icon-box">
+      <canvas id="icon512" width="512" height="512"></canvas>
+      <br><button onclick="download('icon512', 'icon-512.png')">Download 512x512</button>
+    </div>
+  </div>
+
+  <script>
+    function drawIcon(canvas) {
+      const ctx = canvas.getContext('2d');
+      const size = canvas.width;
+      const scale = size / 512;
+
+      // Background
+      ctx.fillStyle = '#1a1a2e';
+      ctx.beginPath();
+      ctx.roundRect(0, 0, size, size, 64 * scale);
+      ctx.fill();
+
+      // WORK text
+      ctx.font = `800 ${72 * scale}px Arial, sans-serif`;
+      ctx.fillStyle = '#e94560';
+      ctx.textAlign = 'center';
+      ctx.fillText('WORK', size / 2, 200 * scale);
+
+      // LOG text
+      ctx.fillStyle = '#ff6b6b';
+      ctx.fillText('LOG', size / 2, 290 * scale);
+
+      // Line
+      ctx.fillStyle = '#e94560';
+      ctx.beginPath();
+      ctx.roundRect(120 * scale, 340 * scale, 272 * scale, 8 * scale, 4 * scale);
+      ctx.fill();
+
+      // Circles
+      ctx.beginPath();
+      ctx.arc(180 * scale, 400 * scale, 24 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#ff6b6b';
+      ctx.beginPath();
+      ctx.arc(256 * scale, 400 * scale, 24 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#e94560';
+      ctx.beginPath();
+      ctx.arc(332 * scale, 400 * scale, 24 * scale, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function download(canvasId, filename) {
+      const canvas = document.getElementById(canvasId);
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    // Draw icons on load
+    drawIcon(document.getElementById('icon192'));
+    drawIcon(document.getElementById('icon512'));
+  </script>
+</body>
+</html>
