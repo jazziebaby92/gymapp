@@ -226,6 +226,7 @@ function WorkoutDetail({ token }) {
                   step="10"
                   value={exercise.weight}
                   onChange={(e) => updateExercise(index, 'weight', e.target.value)}
+                  onFocus={(e) => e.target.select()}
                 />
               </div>
             </div>
