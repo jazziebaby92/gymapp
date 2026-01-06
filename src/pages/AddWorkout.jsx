@@ -47,6 +47,8 @@ function AddWorkout({ token }) {
   const [successMessage, setSuccessMessage] = useState('');
   const [customTemplates, setCustomTemplates] = useState([]);
   const [deleteTemplateMode, setDeleteTemplateMode] = useState(false);
+  const [weightModalIndex, setWeightModalIndex] = useState(null);
+  const WEIGHT_OPTIONS = [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220];
 
   useEffect(() => {
     fetchTemplates();
@@ -350,18 +352,14 @@ function AddWorkout({ token }) {
                   </div>
                   <div className="form-group">
                     <label>Weight (lbs)</label>
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      className="form-control"
-                      placeholder=" "
-                      value={parseInt(exercise.weight) > 0 ? exercise.weight : ''}
-                      onChange={(e) => {
-                        const val = e.target.value.replace(/[^0-9]/g, '');
-                        updateExercise(index, 'weight', val === '0' ? '' : val);
-                      }}
-                    />
+                    <button
+                      type="button"
+                      className="form-control weight-btn"
+                      onClick={() => setWeightModalIndex(index)}
+                      style={{ textAlign: 'center', cursor: 'pointer' }}
+                    >
+                      {exercise.weight || '—'}
+                    </button>
                   </div>
                 </div>
               )}
@@ -395,6 +393,39 @@ function AddWorkout({ token }) {
             {saving ? 'Saving...' : 'SAVE WORKOUT'}
           </button>
         </>
+      )}
+
+      {/* Weight Selection Modal */}
+      {weightModalIndex !== null && (
+        <div className="modal-overlay" onClick={() => setWeightModalIndex(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <h2>Select Weight (lbs)</h2>
+            <div className="weight-grid">
+              {WEIGHT_OPTIONS.map((weight) => (
+                <button
+                  key={weight}
+                  className="btn btn-secondary weight-option"
+                  onClick={() => {
+                    updateExercise(weightModalIndex, 'weight', weight);
+                    setWeightModalIndex(null);
+                  }}
+                >
+                  {weight}
+                </button>
+              ))}
+            </div>
+            <button
+              className="btn btn-secondary btn-full"
+              style={{ marginTop: '12px' }}
+              onClick={() => {
+                updateExercise(weightModalIndex, 'weight', '');
+                setWeightModalIndex(null);
+              }}
+            >
+              Clear
+            </button>
+          </div>
+        </div>
       )}
 
       {/* Add Exercise Modal */}
