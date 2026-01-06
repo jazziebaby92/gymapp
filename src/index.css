@@ -266,6 +266,23 @@ select.form-control option {
   font-size: 0.9rem;
 }
 
+/* Force empty weight inputs to show nothing */
+input[inputmode="numeric"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[inputmode="numeric"]::-webkit-inner-spin-button,
+input[inputmode="numeric"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[inputmode="numeric"]::placeholder {
+  color: transparent;
+}
+
 /* Messages */
 .error-message {
   background: rgba(220, 53, 69, 0.2);
